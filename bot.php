@@ -1,11 +1,6 @@
 <?php
 
 $data = json_decode(file_get_contents('php://input'),true);
-file_put_contents('file.txt', '$data:' . print_r($data,1). "\n", FILE_APPEND);
-
-if (empty($data['message']['chat']['id'])) {
-    exit();
-}
 
 define('TOKEN', '1536419268:AAG1cmEAaBAPc0jyT1F5-PkWFqpNVDspN90');
 
@@ -337,8 +332,15 @@ switch ($text)
             'sendMessage',
             array(
                 'chat_id' => $data['message']['chat']['id'],
-                'text' => 'Прочувствовать атмосферу Дома Толстого можно на обзорной экскурсии',
+                'text' => 'Прочувствовать атмосферу Дома Толстого можно на обзорной экскурсии.',
                 'reply_markup' => json_encode([
+                    'one_time_keyboard' => true,
+                    'resize_keyboard' => true,
+                    'keyboard' => [
+                        [
+                            ['text' => 'Перезапустить квест'],
+                        ]
+                    ],
                     'inline_keyboard' => [
                         [
                             ['text' => 'Купить билет', 'url' => 'http://mirror.tickets.ypmus.ru/ru/#id=43'],
