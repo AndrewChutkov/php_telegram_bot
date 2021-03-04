@@ -1,6 +1,7 @@
 <?php
 
 $data = json_decode(file_get_contents('php://input'),true);
+$text = $data['message']['text'];
 
 define('TOKEN', '1536419268:AAG1cmEAaBAPc0jyT1F5-PkWFqpNVDspN90');
 
@@ -17,8 +18,6 @@ function sendTelegram($method, $response)
 
     return $res;
 }
-
-$text = $data['message']['text'];
 
 //Ответ бота
 switch ($text)
