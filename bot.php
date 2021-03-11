@@ -2,7 +2,7 @@
 
 $data = json_decode(file_get_contents('php://input'),true);
 
-define('TOKEN', 'токен');
+define('TOKEN', '*токен*');
 
 // Функция вызова методов API
 function sendTelegram($method, $response)
@@ -24,7 +24,6 @@ $text = $data['message']['text'];
 switch ($text)
 {
     case '/start';
-    case 'Перезапустить квест';
         sendTelegram(
             'sendPhoto',
             array(
@@ -329,16 +328,17 @@ switch ($text)
 
     case 'Конец!':
         sendTelegram(
-            'sendMessage',
+            'sendPhoto',
             array(
                 'chat_id' => $data['message']['chat']['id'],
-                'text' => 'Прочувствовать атмосферу Дома Толстого можно на обзорной экскурсии.',
+                'caption' => 'Прочувствовать атмосферу Дома Толстого можно на обзорной экскурсии.',
+                'photo' => curl_file_create(__DIR__ . '/images/photo8.png'),
                 'reply_markup' => json_encode([
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                     'inline_keyboard' => [
                         [
-                            ['text' => 'Купить билет', 'url' => 'http://mirror.tickets.ypmus.ru/ru/#id=43'],
+                            ['text' => 'Купить билет', 'url' => 'https://ypmuseum.ru/tours'],
                         ]
                     ]
                 ])
